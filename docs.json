@@ -46,7 +46,14 @@
           {
             "group": "Endpoint Examples",
             "pages": [
-              "api-reference/endpoint/get",
+              "api-reference/endpoint/getBearer",
+              "api-reference/endpoint/getavailableServices",
+              "api-reference/endpoint/collectionPayment",
+              "api-reference/endpoint/disbursePayment",
+              "api-reference/endpoint/transfertFunds",
+              "api-reference/endpoint/verifyTransaction",
+              "api-reference/endpoint/transactionDetails",
+              "api-reference/endpoint/converter",
               "api-reference/endpoint/create",
               "api-reference/endpoint/delete",
               "api-reference/endpoint/webhook"
