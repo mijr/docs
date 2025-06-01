@@ -21,12 +21,46 @@ SoleasPay Endpoints support GET, POST, PUT or DELETE Requests.
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+SoleasPay API require authenticated token in all header's request.
+Depending on the endpoint prefixe, they accept :
+Bearer Token : For all endpoints started by /api/action
+x-api-key : For all endpoints started by /api/agent
+
+## Rate Limits
+
+The number of request is limited to 500 requests per hour, per IP address. If you need a higher limit,
+ please contact us. All IPs sending excessive requests will be down.
+
+## Callback
+
+<Note>
+In asynchronous system, all requests will be processed and final state will be share to your application through your callback endpoint.
+
+For security reason, all our request must contain a x-private-key header. its value is the hash 512 of your secret hash received after configuring your callback endpoint
+</Note>
 
 ```json
 "security": [
   {
-    "bearerAuth": []
+    
+calback request sample
+
+curl --location 'https://your-callback-endpoint.com' \
+--header 'x-private-key: bc0d4ddd93081cecc2770b82f37158a26083ccd07efe46a4c90d698ac481325543d46610a0bac7ea9b6a00013d800b82d0369f1ba296e16beab79e16ebdc0b9b' \
+--header 'Content-Type: application/json' \
+--data '{
+    "success" : true || false,
+    "status" : "SUCCESS" || "RECEIVED" || "REFUND",
+    "created_at" : "date",
+    "data" : {
+        "operation" : "operation name",
+        "reference" : "internal reference",
+        "external_reference" : "order id",
+        "transaction_reference" : "transaction Reference",
+        "amount" : "transaction amount",
+        "currency" : "transaction currency"
+    }
+}'
   }
 ]
 ```
